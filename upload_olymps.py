@@ -110,3 +110,52 @@ def Maks(magic,first,last):
             delete = [i - 1 for i in delete]
     return c
 print(max(normal(magic,d_f,d_l),rev(magic,d_f,d_l),unique(magic,d_f,d_l),Maks(magic,d_f,d_l)))
+
+# Рубик Кубика
+f = open("C:/Users/Тимофей/Desktop/Кубик Рубика/input_s1_20.txt")
+n, m = map(int, f.readline().split())
+first = tuple(int(i) for i in f.readline().split())
+x = first[0]
+y = first[1]
+z = first[2]
+moves = [f.readline().split() for i in range(m)]
+for i in range(len(moves)):
+    letter = moves[i][0]
+    digit = int(moves[i][1])
+    direction = int(moves[i][2])
+    p_x = x
+    p_y = y
+    p_z = z
+    if letter == "X" and x == digit:
+        if direction > 0:
+            temp = z
+            z = n + 1 - y
+            y = temp
+        if direction < 0:
+            temp = y
+            y = n + 1 - z
+            z = temp
+    elif letter == "Y" and y == digit:
+        if direction > 0:
+            temp = z
+            z = n + 1 - x
+            x = temp
+        if direction < 0:
+            temp = x
+            x = n + 1 - z
+            z = temp
+    elif letter == "Z" and z == digit:
+        if direction > 0:
+            temp = y
+            y = n + 1 - x
+            x = temp
+        if direction < 0:
+            temp = x
+            x = n + 1 - y
+            y = temp
+g = open("C:/Users/Тимофей/Desktop/Кубик Рубика/output_s1_20.txt")
+ans = list((int(i) for i in g.readline().split()))
+if ans[0] == x and ans[1] == y and ans[2] == z: print("YES")
+else:
+    print("Должно быть: ",ans)
+    print("Как есть: ",x,y,z)
