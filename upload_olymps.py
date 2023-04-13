@@ -159,3 +159,25 @@ if ans[0] == x and ans[1] == y and ans[2] == z: print("YES")
 else:
     print("Должно быть: ",ans)
     print("Как есть: ",x,y,z)
+    
+    
+# зелье
+f = open("C:/Users/Тимофей/Desktop/олимпиадки/Зельеварение/Зельеварение/input10.txt")
+s = f.readline()
+recept = {"DUST":["DT","TD"], "FIRE":["FR","RF"], "WATER":["WT","TW"], "MIX":["MX","XM"]}
+file = []
+while(s != ""):
+    file.append(s.strip().split())
+    sp = ""
+    s = f.readline()
+spells = [[] for i in range(len(file))]
+for i in range(len(file)):
+    spells[i] = recept[file[i][0]][0]
+    for j in range(1,len(file[i])):
+        if not(file[i][j].isdigit()): spells[i] += file[i][j]
+        else: spells[i] += spells[int(file[i][j])-1]
+    spells[i] += recept[file[i][0]][1]
+g = open(f"C:/Users/Тимофей/Desktop/олимпиадки/Зельеварение/Зельеварение/output10.txt")
+out = g.readline()
+if out == spells[-1]: print("GOOD")
+else: print(f"Как есть: {spells[-1]},как должно быть: {out}")
