@@ -181,3 +181,70 @@ g = open(f"C:/Users/Тимофей/Desktop/олимпиадки/Зельевар
 out = g.readline()
 if out == spells[-1]: print("GOOD")
 else: print(f"Как есть: {spells[-1]},как должно быть: {out}")
+
+    
+#  XXX Company
+chifs = dict()
+f = open(f"C:/Users/Тимофей/Desktop/олимпиадки/Компания ХХХ/input_s1_16.txt")
+g = open(f"C:/Users/Тимофей/Desktop/олимпиадки/Компания ХХХ/output_s1_16.txt")
+s = f.readline()
+file = []
+while s != "":
+    file.append(s.strip())
+    s = f.readline()
+    # print(file)
+target = file[-1]
+target_ind = 0
+
+for i in range(0,len(file)-2,2):
+    if file[i][:4] not in [x[:4] for x in chifs.keys()]:
+        chifs[file[i]] = []
+        chifs[file[i]].append(file[i+1])
+    else:
+        for j in range(len(chifs.keys())):
+            if file[i][:4] == list(chifs.keys())[j][:4]:
+                chifs[list(chifs.keys())[j]].append(file[i+1])
+    if target.isdigit():
+        if (file[i][:4] == target): target_ind = i  # только циферную часть смотрим
+        if (file[i+1][:4] == target): target_ind = i+1  # только циферную часть смотрим
+    else:
+
+        if (file[i][5:] == target): target_ind = i  # только словесную часть смотрим
+        if (file[i+1][5:] == target): target_ind = i+1
+prev_target_ind = target_ind
+keys = list(chifs.keys())
+f = 0
+for i in range(len(keys)):
+    if file[target_ind][:4] == keys[i][:4]:
+        target_ind = i
+        f = 1
+        break
+if f:
+    recruits = [i for i in chifs[keys[target_ind]]]
+    employees = [i for i in chifs[keys[target_ind]]]
+    m = ''
+    for i in range(len(keys)):
+        for j in range(len(chifs[keys[target_ind]])):
+            if keys[i][:4] == chifs[keys[target_ind]][j][:4]:
+                recruits += chifs[keys[i]]
+                if chifs[keys[target_ind]][j].isdigit() and not(keys[i].isdigit()):  recruits[j] = keys[i]
+                m = chifs[keys[i]]
+                m_prev = [i for i in m]
+                while any([m[g][:4] == keys[k][:4] for k in range(len(keys)) for g in range(len(m))]):
+                    # print("m",m)
+                    for i1 in range(len(keys)):
+                        for j1 in range(len(m)):
+                                if keys[i1][:4] == m[j1][:4]:
+                                    recruits += chifs[keys[i1]]
+                                    if m[j1].isdigit() and not (keys[i1].isdigit()):  recruits[j1] = keys[i1]
+                                    m_prev = [i for i in m if i != m[j1]]
+                                    m = chifs[keys[i1]]
+                                    if not(any([m[g][:4] == keys[k][:4] for k in range(len(keys)) for g in range(len(m))])):
+                                        m = m_prev
+                                        break
+    for i in range(len(recruits)):
+        if recruits[i].isdigit(): recruits[i] += " Unknown Name"
+    recruits.sort()
+    reading = [x.strip() for x in g.readlines()]
+    print(reading == recruits)
+else: print("NO")
