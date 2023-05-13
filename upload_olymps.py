@@ -1,3 +1,66 @@
+# обмен денег
+f = open("C:/Users/Тимофей/Desktop/олимпиадки/Обмен денег/input14.txt")
+reader = [int(i) for i in f.readline().split()]
+n1 = reader[0]
+begin_currency = []
+end_currency = []
+for i in range(1,n1):
+    begin_currency.append(reader[i])
+
+begin_unfortunate = []
+end_unfortunate = []
+reader = [int(i) for i in f.readline().split()]
+for i in range(1,reader[0]+1):
+    begin_unfortunate.append(reader[i])
+
+reader = [int(i) for i in f.readline().split()]
+for i in range(1,reader[0]):
+    end_currency.append(reader[i])
+
+reader = [int(i) for i in f.readline().split()]
+for i in range(1,reader[0]+1):
+    end_unfortunate.append(reader[i])
+print(begin_unfortunate)
+print(begin_currency)
+print(end_unfortunate)
+print(end_currency)
+
+reader = [int(i) for i in f.readline().split()]
+entry = []
+out = []
+for i in range(len(begin_currency)+1):
+    entry.append(reader[i])
+print(entry)
+# отнимаем несчастл числа
+for i in range(len(entry)):
+    entry[i] -= sum(1 for x in begin_unfortunate if entry[i] >= x)
+# конвертируем в мин ден единицу
+if len(entry) > 1:
+    while begin_currency:
+        entry[1] += entry[0]*begin_currency[0]
+        begin_currency.pop(0)
+        entry.pop(0)
+print("мин",entry)
+# конвертируем по всем единицам в другой валюте
+while end_currency:
+    n = entry[0]
+    entry.insert(0, n//end_currency[-1])
+    entry[1] = n - entry[0]*end_currency.pop(-1)
+print(entry)
+# прибавляем в кол-во несчаст чисел
+for i in range(len(entry)):
+    if entry[i]==640:
+        print(1)
+        print([x for x in end_unfortunate if entry[i] < x])
+    entry[i] += sum(1 for x in end_unfortunate if entry[i] >= x)
+ans = open("C:/Users/Тимофей/Desktop/олимпиадки/Обмен денег/output14.txt").readline().split()
+for i in range(len(entry)):
+    print(entry[i], int(ans[i]))
+
+
+
+
+# Золотая рыбка
 f = open("C:/Users/Тимофей/Desktop/олимпиадки/Золотая рыбка/input_s1_02.txt")
 n = int(f.readline())
 magic = []
