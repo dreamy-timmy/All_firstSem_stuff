@@ -1,3 +1,82 @@
+# отливка формы
+#12 чистых тестов
+f = open("C:/Users/Тимофей/Desktop/олимпиадки/формы для отливки/Формы для отливки/input1.txt")
+n = int(f.readline())
+third = [f.readline()[:-1].split() for i in range(n)]
+three = [[third[i][:5], third[i][5:10],third[i][10:15],third[i][15:20]] for i in range(n)]
+two = [f.readline()[:-1].split() for i in range(2*n-1)]
+two.append(f.readline().split())
+second = [[two[i][:5], two[i][5:10], two[i][10:]] for i in range(2*n)]
+ans = [(0,0) for i in range(n)]
+for i in range(len(two)):
+    first = second[i][0]
+    last = second[i][-1]
+    for j in range(i+1,len(second)):
+        if (list(reversed(first)) == second[j][0] and list(reversed(last)) == second[j][-1]) or first == second[j][-1] and last == second[j][0]:#or (list(reversed(first)) == second[j][-1] and list(reversed(last)) == second[j][0])\
+            s = [second[j][0], second[j][1],second[j][-1],second[i][1]]
+            for h in range(len(three)):
+                if (first in three[h] or list(reversed(first)) in three[h]) and (last in three[h] or list(reversed(last)) in three[h]):
+                    # print(1.0, i+1, j+1)
+                    #if (second[j][1] in three[h] or list(reversed(second[j][1])) in three[h]) and (list(reversed(second[i][1])) in three[h] or second[i][1] in three[h]):
+                    # kinda_th = three[h]
+                    # kinda_s = s
+                    # f = 1
+                    three45 = [three[h][1], three[h][2], three[h][3], three[h][0]]
+                    three45_2 = [three45[2], three45[3], three45[0], three45[1]]
+                    three45_3 = [list(reversed(three45_2[0])), list(reversed(three45_2[-1])), list(reversed(three45_2[2])),
+                                  list(reversed(three45_2[1]))]
+                    three45_4 = [list(reversed(three45[0])), list(reversed(three45[-1])),
+                                  list(reversed(three45[2])),
+                                  list(reversed(three45[1]))]
+                    three2 = [three[h][2], three[h][3], three[h][0], three[h][1]]
+                    three3 = [list(reversed(three2[0])), list(reversed(three2[-1])), list(reversed(three2[2])),
+                                  list(reversed(three2[1]))]
+                    three4 = [list(reversed(three[h][0])), list(reversed(three[h][-1])),
+                                  list(reversed(three[h][2])),
+                                  list(reversed(three[h][1]))]
+                    threes = [three[h], three2, three3, three4, three45, three45_2, three45_3, three45_4]
+                    if [second[j][0], second[j][1], second[j][-1], list(reversed(second[i][1]))] in threes or\
+                                [second[j][0], list(reversed(second[i][1])), second[j][-1], second[j][1]] in threes or\
+                                [second[i][0], second[i][1], second[i][-1], list(reversed(second[j][1]))] in threes or\
+                                [second[i][0], list(reversed(second[j][1])), second[i][-1], second[i][1]] in threes  or\
+                                [second[j][0], second[j][1], second[j][-1], second[i][1]] in threes  or \
+                                [second[j][0], second[i][1], second[j][-1], second[j][1]] in threes  or \
+                                [second[i][0], second[i][1], second[i][-1], second[j][1]] in threes or \
+                                [second[i][0], second[j][1], second[i][-1], second[i][1]] in threes: ans[h] = (i+1, j+1)
+                        # if [forty[0], forty[1], forty[-1], sixtn[1]] in things or [forty[0], sixtn[1], forty[-1], forty[1]] in things: ...
+                        # for k in range(len(kinda_s)):
+                        #     if kinda_s[k] in kinda_th:
+                        #         for z in range(len(kinda_th)):
+                        #             if kinda_th[z] == kinda_s[k]:
+                        #                 kinda_th = [kinda_th[g] for g in range(len(kinda_th)) if g != z]
+                        #                 break
+                        #     elif list(reversed(kinda_s[k])) in kinda_th:
+                        #         for z in range(len(kinda_th)):
+                        #             if kinda_th[z] == kinda_s[k]:
+                        #                 kinda_th = [kinda_th[g] for g in range(len(kinda_th)) if g != z]
+                        #                 break
+                        #     else:
+                        #         f = 0
+                        # if f == 1:
+                        #     print(1.1," ", i+1, j+1, h+1)
+                        #     if i + 1 == 15 and j + 1 == 17: print(three[h],s)
+                        #     if i+1 == 15 and j+1 == 34: print(three[h],s)
+                        #     ans[h] = (i+1, j+1)
+                    # elif list(reversed(first)) in three[h] and list(reversed(last)) in three[h]:
+                    #     if second[j][1] in three[h] and second[i][1] in three[h] or list(reversed(second[j][1])) in three[h] and list(reversed(second[i][1])) in three[h]:
+                    #         print(1.2," ", i+1,j+1,h)
+                    #         ans[h] = (i+1, j+1)
+
+print(*ans)
+output = open("C:/Users/Тимофей/Desktop/олимпиадки/формы для отливки/Формы для отливки/output1.txt")
+for i in ans:
+    s = output.readline().split()
+    if(i[0] == int(s[0]) and i[1] == int(s[1])): ...
+    else: print("Как должно быть: ",s,"Как есть: ",i)
+
+
+
+
 # обмен денег
 f = open("C:/Users/Тимофей/Desktop/олимпиадки/Обмен денег/input14.txt")
 reader = [int(i) for i in f.readline().split()]
