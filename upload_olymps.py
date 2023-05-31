@@ -1,3 +1,38 @@
+# таукита
+def converter(l):
+    new = []
+    if len(l) % 2 == 0:
+        new.append(l.pop(0))
+        print(new, l)
+        while l:
+            new.append(l.pop())
+            if len(l) > 0: new.append(l.pop(0))
+    else:
+        new.append(l.pop())
+        while l:
+            new.append(l.pop(0))
+            if len(l) > 0: new.append(l.pop())
+    new.reverse()
+    return new
+
+aboba = open("C:/Users/Тимофей/Desktop/олимпиадки/Тау-Кита/input_s1_09.txt").readline().split()
+s1 = converter(aboba)
+for i in range(len(s1)):
+    s2 = []
+    s2 += s1[i]
+    string = ""
+    for l in converter(s2): string += l
+    s1[i] = string
+    print(string)
+
+ans = open("C:/Users/Тимофей/Desktop/олимпиадки/Тау-Кита/output_s1_09.txt").readline().split()
+print(s1 == ans)
+
+
+
+
+
+
 # отливка формы
 #12 чистых тестов
 f = open("C:/Users/Тимофей/Desktop/олимпиадки/формы для отливки/Формы для отливки/input1.txt")
