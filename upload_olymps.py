@@ -425,3 +425,81 @@ if f:
     reading = [x.strip() for x in g.readlines()]
     print(reading == recruits)
 else: print("NO")
+
+
+#ЗАДАЧА ПРО МОЛОКО
+def m(p1,p2,v1,v2,s1,s2):
+    return round(((p1*s2-p2*s1)/(p1*v2-p2*v1)),2)
+def p(a,b,c):
+    return 2*(a*b+a*c+b*c)
+def v(a,b,c):
+    return a*b*c/1000
+companies = [(float(input("1-ый параметр: ")),float(input("2-ой параметр: ")),float(input("3-ый параметр: ")),float(input("стоимость упаковки: ")),
+              float(input("1-ый параметр: ")),float(input("2-ой параметр: ")),float(input("3-ый параметр: ")),float(input("стоимость упаковки: ")))
+             for i in range(int(input("Кол-во фирм: ")))]
+v2 = v(10,10,5)
+p2 = p(10,10,5)
+m = [m(p(*companies[i][:3]),p(*companies[i][4:7]),v(*companies[i][:3]),v(*companies[i][4:7]),companies[i][3],companies[i][7]) for i in range(len(companies))]
+mn = 100
+n = 0
+for i in range(len(m)):
+    if m[i] < mn:
+        mn = m[i]
+        n = i+1
+print(n,mn)
+
+
+#3) определить элемент с наибольшим кол-вом единиц в двоичной записи, если таких элементов несколько - выдать макс
+
+m = [9,2,17,4,33]
+
+mx = 0
+mx_sm = 0
+sm = 0
+for i in range(len(m)):
+    c = m[i]
+    while(c>0):
+        sm += c%2
+        c //= 2
+    if sm > mx_sm:
+        mx_sm = sm
+    elif sm == mx_sm:
+        if m[i]>mx: mx = m[i]
+    sm = 0
+print(mx)
+
+# ПОСТРОЙКА ДОМА
+#X, Y, L, С1, С2, С3, С4, С5, С6
+# с1 = 10р
+# с2 = 4р
+# с3 = 7р
+# с4 =  6р
+# с5 = 6р
+# с6 = 3р
+# L = 5
+# ремонт 1м уцелевшей стены - с1
+# разбор 1м уцелевшей стены - с2
+# строительство 1м из материала уцелевшей стены - с3
+# строительство 1м из нового материала - с4
+# стоимость 1м нового - с5
+
+
+# 1)сравнить мин(с1,(с4+с5),(с2+с3)), макс(с1,(с4+с5),(с2+с3)), avg(с1,(с4+с5),(с2+с3))
+# 2)мин, avg, макс использовать до конца соответственно
+#
+# уцелевшую сопоставить с МАКС длиной новой стены, оставшуюся- разобрать и пристроить к другой стороне
+#3 4 5 10 4 7 6 6 3
+
+
+# x, y, l, c1, c2, c3, c4, c5, c6 = int(input()),int(input()),int(input()),int(input()),int(input()),int(input()),int(input()),int(input()),int(input())
+#
+# mn = min(c1,c2+c3,c4+c5)
+# mx = max(c1,(c4+c5),(c2+c3))
+# avg = (c1+c2+c3+c4+c5) -(mx+mn)
+#
+x, y, l, c1, c2, c3, c4, c5, c6 = int(input()),int(input()),int(input()),int(input()),int(input()),int(input()),int(input()),int(input()),int(input())
+p = 2*(x + y)
+s1 = l * (c2 + c6) + p * (c4 + c5)
+s2 = l * c1 + (p - l) * (c4 + c5)
+s3 = l * (c2 + c3) + (p - l) * (c4 + c5)
+print(min(s1, s2, s3))
